@@ -1,6 +1,8 @@
 import "dotenv/config";
 
+import fastifyCors from "@fastify/cors";
 import fastifySwagger from "@fastify/swagger";
+import fastifyApiReference from "@scalar/fastify-api-reference";
 import Fastify from "fastify";
 import {
   jsonSchemaTransform,
@@ -10,6 +12,8 @@ import {
 } from "fastify-type-provider-zod";
 import { env } from "process";
 import { z } from "zod";
+
+import { auth } from "./lib/auth";
 
 const app = Fastify({
   logger: true,
@@ -35,6 +39,40 @@ await app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 });
 
+await app.register(fastifyCors, {
+  origin: [env.WEB_APP_BASE_URL ?? "http://localhost:3000"],
+  credentials: true,
+});
+
+await app.register(fastifyApiReference, {
+  routePrefix: "/docs",
+  configuration: {
+    sources: [
+      {
+        title: "Treinos API",
+        slug: "treinos-api",
+        url: "/swagger.json",
+      },
+      {
+        title: "Auth API",
+        slug: "auth-api",
+        url: "/api/auth/open-api/generate-schema",
+      },
+    ],
+  },
+});
+
+app.withTypeProvider<ZodTypeProvider>().route({
+  method: "GET",
+  url: "/swagger.json",
+  schema: {
+    hide: true,
+  },
+  handler: async () => {
+    return app.swagger();
+  },
+});
+
 app.withTypeProvider<ZodTypeProvider>().route({
   method: "GET",
   url: "/",
@@ -54,8 +92,44 @@ app.withTypeProvider<ZodTypeProvider>().route({
   },
 });
 
+// Register authentication endpoint
+app.route({
+  method: ["GET", "POST"],
+  url: "/api/auth/*",
+  async handler(request, reply) {
+    try {
+      // Construct request URL
+      const url = new URL(request.url, `http://${request.headers.host}`);
+
+      // Convert Fastify headers to standard Headers object
+      const headers = new Headers();
+      Object.entries(request.headers).forEach(([key, value]) => {
+        if (value) headers.append(key, value.toString());
+      });
+      // Create Fetch API-compatible request
+      const req = new Request(url.toString(), {
+        method: request.method,
+        headers,
+        ...(request.body ? { body: JSON.stringify(request.body) } : {}),
+      });
+      // Process authentication request
+      const response = await auth.handler(req);
+      // Forward response to client
+      reply.status(response.status);
+      response.headers.forEach((value, key) => reply.header(key, value));
+      reply.send(response.body ? await response.text() : null);
+    } catch (error) {
+      app.log.error(error, "Authentication Error");
+      reply.status(500).send({
+        error: "Internal authentication error",
+        code: "AUTH_FAILURE",
+      });
+    }
+  },
+});
+// Initialize server
 try {
-  await app.listen({ port: Number(process.env.PORT), host: "0.0.0.0" });
+  await app.listen({ host: "0.0.0.0", port: Number(env.PORT) });
 } catch (err) {
   app.log.error(err);
   process.exit(1);
