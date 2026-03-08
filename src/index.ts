@@ -32,7 +32,7 @@ await app.register(fastifySwagger, {
     servers: [
       {
         description: "API Base URL",
-        url: env.API_BASE_URL ?? "http://localhost:3000",
+        url: env.APP_BASE_URL ?? "http://127.0.0.1:3000",
       },
     ],
   },
@@ -40,7 +40,7 @@ await app.register(fastifySwagger, {
 });
 
 await app.register(fastifyCors, {
-  origin: [env.WEB_APP_BASE_URL ?? "http://localhost:3000"],
+  origin: [env.APP_BASE_URL ?? "http://127.0.0.1:3000"],
   credentials: true,
 });
 
