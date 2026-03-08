@@ -1,11 +1,14 @@
 import "dotenv/config";
 
+import fastifySwagger from "@fastify/swagger";
 import Fastify from "fastify";
 import {
+  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import { env } from "process";
 import { z } from "zod";
 
 const app = Fastify({
@@ -15,8 +18,21 @@ const app = Fastify({
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.get("/", async function handler() {
-  return { hello: "world" };
+await app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "Treinos API",
+      description: "API para de treinos",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        description: "API Base URL",
+        url: env.API_BASE_URL ?? "http://localhost:3000",
+      },
+    ],
+  },
+  transform: jsonSchemaTransform,
 });
 
 app.withTypeProvider<ZodTypeProvider>().route({
