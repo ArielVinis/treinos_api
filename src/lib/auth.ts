@@ -1,22 +1,29 @@
-import { PrismaPg } from "@prisma/adapter-pg";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { openAPI } from "better-auth/plugins";
-import { env } from "process";
 
-import { PrismaClient } from "../../prisma/generated/prisma/client";
-
-const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: env.DATABASE_URL }),
-});
+import { prisma } from "./db.js";
+import { env } from "./env.js";
 
 export const auth = betterAuth({
-  trustedOrigins: [env.APP_BASE_URL ?? "http://127.0.0.1:3000"],
-  emailAndPassword: {
-    enabled: true,
+  baseURL: env.API_BASE_URL,
+  trustedOrigins: [env.WEB_APP_BASE_URL],
+  socialProviders: {
+    google: {
+      prompt: "select_account",
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    },
   },
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
   plugins: [openAPI()],
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+      domain:
+        env.NODE_ENV === "production" ? ".fullstackclub.com.br" : undefined,
+    },
+  },
 });
