@@ -20,70 +20,124 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
 
+export type UserAvgAggregateOutputType = {
+  weightInGrams: number | null
+  heightInCentimeters: number | null
+  age: number | null
+  bodyFatPercentage: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  weightInGrams: number | null
+  heightInCentimeters: number | null
+  age: number | null
+  bodyFatPercentage: number | null
+}
+
 export type UserMinAggregateOutputType = {
   id: string | null
-  email: string | null
   name: string | null
+  email: string | null
   emailVerified: boolean | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  weightInGrams: number | null
+  heightInCentimeters: number | null
+  age: number | null
+  bodyFatPercentage: number | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
-  email: string | null
   name: string | null
+  email: string | null
   emailVerified: boolean | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  weightInGrams: number | null
+  heightInCentimeters: number | null
+  age: number | null
+  bodyFatPercentage: number | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
-  email: number
   name: number
+  email: number
   emailVerified: number
   image: number
   createdAt: number
   updatedAt: number
+  weightInGrams: number
+  heightInCentimeters: number
+  age: number
+  bodyFatPercentage: number
   _all: number
 }
 
 
+export type UserAvgAggregateInputType = {
+  weightInGrams?: true
+  heightInCentimeters?: true
+  age?: true
+  bodyFatPercentage?: true
+}
+
+export type UserSumAggregateInputType = {
+  weightInGrams?: true
+  heightInCentimeters?: true
+  age?: true
+  bodyFatPercentage?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
-  email?: true
   name?: true
+  email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
+  weightInGrams?: true
+  heightInCentimeters?: true
+  age?: true
+  bodyFatPercentage?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
-  email?: true
   name?: true
+  email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
+  weightInGrams?: true
+  heightInCentimeters?: true
+  age?: true
+  bodyFatPercentage?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
-  email?: true
   name?: true
+  email?: true
   emailVerified?: true
   image?: true
   createdAt?: true
   updatedAt?: true
+  weightInGrams?: true
+  heightInCentimeters?: true
+  age?: true
+  bodyFatPercentage?: true
   _all?: true
 }
 
@@ -125,6 +179,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -155,19 +221,27 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
 
 export type UserGroupByOutputType = {
   id: string
+  name: string
   email: string
-  name: string | null
   emailVerified: boolean
   image: string | null
   createdAt: Date
   updatedAt: Date
+  weightInGrams: number | null
+  heightInCentimeters: number | null
+  age: number | null
+  bodyFatPercentage: number | null
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -192,12 +266,16 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  weightInGrams?: Prisma.IntNullableFilter<"User"> | number | null
+  heightInCentimeters?: Prisma.IntNullableFilter<"User"> | number | null
+  age?: Prisma.IntNullableFilter<"User"> | number | null
+  bodyFatPercentage?: Prisma.IntNullableFilter<"User"> | number | null
   workoutPlans?: Prisma.WorkoutPlanListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -205,12 +283,16 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  weightInGrams?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrderInput | Prisma.SortOrder
+  age?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   workoutPlans?: Prisma.WorkoutPlanOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
@@ -222,11 +304,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  name?: Prisma.StringNullableFilter<"User"> | string | null
+  name?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  weightInGrams?: Prisma.IntNullableFilter<"User"> | number | null
+  heightInCentimeters?: Prisma.IntNullableFilter<"User"> | number | null
+  age?: Prisma.IntNullableFilter<"User"> | number | null
+  bodyFatPercentage?: Prisma.IntNullableFilter<"User"> | number | null
   workoutPlans?: Prisma.WorkoutPlanListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -234,15 +320,21 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  weightInGrams?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrderInput | Prisma.SortOrder
+  age?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -250,22 +342,30 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
+  name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  weightInGrams?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  heightInCentimeters?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  age?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  bodyFatPercentage?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
 }
 
 export type UserCreateInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -273,12 +373,16 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -286,12 +390,16 @@ export type UserUncheckedCreateInput = {
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -299,12 +407,16 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -312,62 +424,100 @@ export type UserUncheckedUpdateInput = {
 
 export type UserCreateManyInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  weightInGrams?: Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  weightInGrams?: Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  weightInGrams?: Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  weightInGrams?: Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  weightInGrams?: Prisma.SortOrder
+  heightInCentimeters?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  bodyFatPercentage?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -379,16 +529,24 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type UserCreateNestedOneWithoutWorkoutPlansInput = {
@@ -435,24 +593,32 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
 
 export type UserCreateWithoutWorkoutPlansInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutPlansInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -475,48 +641,64 @@ export type UserUpdateToOneWithWhereWithoutWorkoutPlansInput = {
 
 export type UserUpdateWithoutWorkoutPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutPlansInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -539,48 +721,64 @@ export type UserUpdateToOneWithWhereWithoutSessionsInput = {
 
 export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
   id: string
+  name: string
   email: string
-  name?: string | null
   emailVerified?: boolean
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  weightInGrams?: number | null
+  heightInCentimeters?: number | null
+  age?: number | null
+  bodyFatPercentage?: number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
@@ -603,24 +801,32 @@ export type UserUpdateToOneWithWhereWithoutAccountsInput = {
 
 export type UserUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  weightInGrams?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightInCentimeters?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bodyFatPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   workoutPlans?: Prisma.WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -676,12 +882,16 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  email?: boolean
   name?: boolean
+  email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  weightInGrams?: boolean
+  heightInCentimeters?: boolean
+  age?: boolean
+  bodyFatPercentage?: boolean
   workoutPlans?: boolean | Prisma.User$workoutPlansArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -690,35 +900,47 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  email?: boolean
   name?: boolean
+  email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  weightInGrams?: boolean
+  heightInCentimeters?: boolean
+  age?: boolean
+  bodyFatPercentage?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  email?: boolean
   name?: boolean
+  email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  weightInGrams?: boolean
+  heightInCentimeters?: boolean
+  age?: boolean
+  bodyFatPercentage?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
-  email?: boolean
   name?: boolean
+  email?: boolean
   emailVerified?: boolean
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  weightInGrams?: boolean
+  heightInCentimeters?: boolean
+  age?: boolean
+  bodyFatPercentage?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "weightInGrams" | "heightInCentimeters" | "age" | "bodyFatPercentage", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workoutPlans?: boolean | Prisma.User$workoutPlansArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -737,12 +959,16 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    name: string
     email: string
-    name: string | null
     emailVerified: boolean
     image: string | null
     createdAt: Date
     updatedAt: Date
+    weightInGrams: number | null
+    heightInCentimeters: number | null
+    age: number | null
+    bodyFatPercentage: number | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1170,12 +1396,16 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
-  readonly email: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly weightInGrams: Prisma.FieldRef<"User", 'Int'>
+  readonly heightInCentimeters: Prisma.FieldRef<"User", 'Int'>
+  readonly age: Prisma.FieldRef<"User", 'Int'>
+  readonly bodyFatPercentage: Prisma.FieldRef<"User", 'Int'>
 }
     
 
