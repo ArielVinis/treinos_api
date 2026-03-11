@@ -19,8 +19,8 @@ Crie um `.env` na raiz do projeto. Exemplo:
 
 ```env
 PORT=3000
-APP_BASE_URL="http://localhost:3000"
-BETTER_AUTH_URL="http://localhost:3000"
+WEB_APP_BASE_URL="http://localhost:3000"
+API_BASE_URL="http://localhost:3000"
 BETTER_AUTH_SECRET=secret-aqui
 DATABASE_URL="postgresql://postgres:password@localhost:5432/bootcamp-treinos-api"
 ```
